@@ -16,4 +16,5 @@ public class Trip {
     private Location toPoint;
     private Location fromPoint;
     private TripStatus status;
+
 }

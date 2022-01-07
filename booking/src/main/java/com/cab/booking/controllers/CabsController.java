@@ -1,6 +1,7 @@
 package com.cab.booking.controllers;
 
 import com.cab.booking.model.Cab;
+import com.cab.booking.model.CabType;
 import com.cab.booking.model.Location;
 import com.cab.booking.services.CabService;
 import com.cab.booking.services.TripsService;
@@ -22,8 +23,8 @@ public class CabsController {
     }
 
     @RequestMapping(value = "/cab/register", method = RequestMethod.POST)
-    public ResponseEntity registerCab(String id, String driverName) {
-        cabService.register(new Cab(id, driverName));
+    public ResponseEntity registerCab(String id, String driverName, String cabType) {
+        cabService.register(new Cab(id, driverName, CabType.valueOf(cabType)));
         return ResponseEntity.ok(id);
     }
 

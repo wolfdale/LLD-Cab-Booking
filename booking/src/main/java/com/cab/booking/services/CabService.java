@@ -1,6 +1,7 @@
 package com.cab.booking.services;
 
 import com.cab.booking.model.Cab;
+import com.cab.booking.model.CabType;
 import com.cab.booking.model.Location;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,10 @@ public class CabService {
         return cabs.get(cabId);
     }
 
-    public List<Cab> getAllCabsAtLocation(Location startingPoint) {
+    public List<Cab> getAllCabsAtLocationByType(Location startingPoint, CabType cabType) {
         return cabs.values().stream()
                 .filter(cab -> cab.isCabAtGivenLocation(startingPoint))
+                .filter(cab -> cab.getType().equals(cabType))
                 .collect(Collectors.toList());
     }
 }

@@ -11,11 +11,13 @@ public class Cab {
     private boolean isAvailable;
     private Trip trip;
     private Location location;
+    private CabType type;
 
-    public Cab(String id, String driverName) {
+    public Cab(String id, String driverName, CabType cabType) {
         this.id = id;
         this.driverName = driverName;
         this.isAvailable = true;
+        this.type = cabType;
     }
 
     public boolean isCabAtGivenLocation(Location point) {

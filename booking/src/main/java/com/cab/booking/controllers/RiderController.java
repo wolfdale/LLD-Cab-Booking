@@ -1,10 +1,7 @@
 package com.cab.booking.controllers;
 
 import com.cab.booking.Exception.CabNotAvailableException;
-import com.cab.booking.model.Cab;
-import com.cab.booking.model.Location;
-import com.cab.booking.model.Rider;
-import com.cab.booking.model.Trip;
+import com.cab.booking.model.*;
 import com.cab.booking.services.RiderService;
 import com.cab.booking.services.TripsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +36,22 @@ public class RiderController {
     }
 
     @RequestMapping(value = "/rider/book", method = RequestMethod.POST)
-    public ResponseEntity bookCab(String id, Location to, Location from) {
+    public ResponseEntity bookCab(String id, Location to, Location from, String cabType) {
         try {
-            return ResponseEntity.ok(tripsService.book(id, to, from));
+            return ResponseEntity.ok(tripsService.book(id, to, from, CabType.valueOf(cabType)));
         }
         catch (CabNotAvailableException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
+    @RequestMapping(value = "/rider/frequent", method = RequestMethod.GET)
+    public ResponseEntity getFrequentRiders() {
+        return ResponseEntity.ok(riderService.getActiveUsers());
+    }
+
+    @RequestMapping(value = "/rider/inactive", method = RequestMethod.GET)
+    public ResponseEntity getInactiveRiders() {
+        return ResponseEntity.ok(riderService.getDormantUsers());
+    }
 }
